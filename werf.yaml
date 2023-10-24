@@ -27,7 +27,7 @@ shell:
   - pkg -t node18-alpine-x64 ./dist/index.js  -o /usr/local/bin/api
 
 ---
-image: api
+image: service
 from: node:18.14.2-alpine
 docker:
   ENTRYPOINT: api
