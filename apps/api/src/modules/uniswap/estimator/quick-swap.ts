@@ -1,6 +1,6 @@
 import { EstimatedPrice, EstimateParams } from '@api/types'
 import { Percent, Token as QSToken, TokenAmount, Trade } from '@rarimo/quickswap-sdk'
-import { Amount } from '@rarimo/shared'
+import { Amount, EVMDexType } from '@rarimo/shared'
 import { NotFoundError } from 'rxjs'
 
 import {
@@ -49,6 +49,7 @@ export const estimateQuickSwap = async (opts: EstimateParams): Promise<Estimated
   const partialResult = {
     impact: trade.priceImpact.toSignificant(3),
     path: trade.route.path.map(token => token.address),
+    protocol: EVMDexType.QuickSwap,
   }
 
   if (isExactOut) {

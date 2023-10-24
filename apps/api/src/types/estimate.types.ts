@@ -1,6 +1,6 @@
 import { Web3Provider } from '@common'
 import { Token } from '@rarimo/bridge'
-import { Amount, ChainId } from '@rarimo/shared'
+import { Amount, ChainId, EVMDexType } from '@rarimo/shared'
 
 export type EstimatedPrice = {
   amountIn: Amount
@@ -9,6 +9,7 @@ export type EstimatedPrice = {
   impact?: string
   gasPrice?: string
   gasPriceInUSD?: string
+  protocol?: EVMDexType
 }
 
 export type CheckoutOperationParams = {

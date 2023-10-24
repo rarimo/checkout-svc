@@ -2,7 +2,7 @@ import { EstimatedPrice, EstimateParams } from '@api/types'
 import { Percent, Token as PCToken, Trade } from '@pancakeswap/sdk'
 import { getAllCommonPairs } from '@pancakeswap/smart-router/evm'
 import { CurrencyAmount } from '@pancakeswap/swap-sdk-core'
-import { Amount } from '@rarimo/shared'
+import { Amount, EVMDexType } from '@rarimo/shared'
 import { NotFoundError } from 'rxjs'
 
 import {
@@ -52,6 +52,7 @@ export const estimatePancakeSwap = async (opts: EstimateParams): Promise<Estimat
   const partialResult = {
     impact: trade.priceImpact.toSignificant(3),
     path: trade.route.path.map(token => token.address),
+    protocol: EVMDexType.PancakeSwap,
   }
 
   if (isExactOut) {
