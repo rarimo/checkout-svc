@@ -1,6 +1,6 @@
 {
   "name": "checkout-svc",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "gitHooks": {
     "pre-commit": "yarn lint",
@@ -22,7 +22,7 @@
     "test:e2e": "jest --config ./apps/nest-template/test/jest-e2e.json"
   },
   "dependencies": {
-    "@distributedlab/tools": "^1.0.0-rc.0",
+    "@distributedlab/tools": "^1.0.0-rc.6",
     "@nestjs/axios": "^3.0.0",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.0.0",
@@ -34,10 +34,10 @@
     "@pancakeswap/sdk": "3.1.4",
     "@pancakeswap/smart-router": "0.6.1",
     "@pancakeswap/swap-sdk-core": "0.0.1",
-    "@rarimo/bridge": "^2.0.0-rc.6",
+    "@rarimo/bridge": "^2.0.0-rc.29",
     "@rarimo/quickswap-sdk": "^3.0.8",
-    "@rarimo/shared": "^2.0.0-rc.6",
-    "@rarimo/swap": "^2.0.0-rc.6",
+    "@rarimo/shared": "^2.0.0-rc.29",
+    "@rarimo/swap": "^2.0.0-rc.29",
     "@traderjoe-xyz/sdk": "2.0.7",
     "@uniswap/router-sdk": "^1.4.0",
     "@uniswap/sdk-core": "3.1.0",
