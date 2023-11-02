@@ -1,6 +1,7 @@
 import { EstimatedPrice, EstimateParams } from '@api/types'
 import { BN } from '@distributedlab/tools'
-import { Amount } from '@rarimo/shared'
+import { Amount, EVMDexType } from '@rarimo/shared'
+import { Protocol } from '@uniswap/router-sdk'
 import type { Currency } from '@uniswap/sdk-core'
 import { CurrencyAmount, Percent, Token as UNIToken, TradeType } from '@uniswap/sdk-core'
 import type { RouteWithValidQuote } from '@uniswap/smart-order-router'
@@ -11,13 +12,14 @@ import { NotFoundError } from 'rxjs'
 import { getAmountInWithSwapSlippage, getSlippageParams, handleNativeTokens } from './helpers'
 import { computeRealizedPriceImpact } from './uniswap-impact'
 
-const getRoutePath = (route: RouteWithValidQuote[]) => {
-  return route.reduce((path, r) => {
-    const p = encodeRouteToPath(r.route as Route<Currency, Currency>, true)
-    path += path ? p.replace('0x', '') : p
-
-    return path
-  }, '')
+const getRoutePath = (route: RouteWithValidQuote) => {
+  if (route.protocol === Protocol.V2) {
+    return { path: route.tokenPath.map(t => t.address), protocol: EVMDexType.UniswapV2 }
+  }
+  return {
+    path: [encodeRouteToPath(route.route as Route<Currency, Currency>, true)],
+    protocol: EVMDexType.UniswapV3,
+  }
 }
 
 export const estimateUniswapV3 = async (opts: EstimateParams): Promise<EstimatedPrice> => {
@@ -62,8 +64,8 @@ export const estimateUniswapV3 = async (opts: EstimateParams): Promise<Estimated
   )
 
   const partialResult = {
+    ...getRoutePath(route.route[0]),
     impact: trade ? computeRealizedPriceImpact(trade) : undefined,
-    path: [getRoutePath(route.route)],
     gasPriceInUSD: BN.fromBigInt(
       estimatedGasUsedUSD.numerator.toString(),
       estimatedGasUsedUSD.currency.decimals,

@@ -1,5 +1,5 @@
 import { EstimatedPrice, EstimateParams } from '@api/types'
-import { Amount } from '@rarimo/shared'
+import { Amount, EVMDexType } from '@rarimo/shared'
 import { Percent, Token as TJToken, TokenAmount, Trade } from '@traderjoe-xyz/sdk'
 import { NotFoundError } from 'rxjs'
 
@@ -48,6 +48,7 @@ export const estimateTraderJoe = async (opts: EstimateParams): Promise<Estimated
   const partialResult = {
     impact: trade.priceImpact.toSignificant(3),
     path: trade.route.path.map(token => token.address),
+    protocol: EVMDexType.TraderJoe,
   }
 
   if (isExactOut) {

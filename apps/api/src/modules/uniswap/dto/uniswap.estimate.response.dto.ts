@@ -1,5 +1,6 @@
 import { AmountDto } from '@common'
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { EVMDexType } from '@rarimo/shared'
 
 export class UniswapEstimateResponseDto {
   @ApiProperty({
@@ -8,6 +9,9 @@ export class UniswapEstimateResponseDto {
     required: true,
   })
   path: string[]
+
+  @ApiProperty({ enum: EVMDexType, example: EVMDexType.UniswapV2, required: true })
+  protocol: EVMDexType
 
   @ApiProperty({ type: () => AmountDto })
   amountIn: AmountDto
